@@ -16,7 +16,8 @@ public:
 
 int main(int argc, char const *argv[])
 {
-    Chord c;
+    current_pos = 1;
+    Chord c(10, 10, {});
     c.print_chord(cout);
     return 0;
 }

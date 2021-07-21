@@ -13,7 +13,7 @@
 #include <string>
 #include <iostream>
 
-static double current_pos;
+static double current_pos = 1;
 
 class Chord
 {
@@ -24,7 +24,7 @@ private:
     std::map<int, std::string> mods;
 
 public:
-    Chord(double length_in, int num_in, std::map<int, std::string> &mods_in);
+    Chord(double length_in, int num_in, std::map<int, std::string> mods_in);
     Chord();
     void print_chord(std::ostream &os);
 };
