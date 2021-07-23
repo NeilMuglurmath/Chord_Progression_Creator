@@ -1,16 +1,16 @@
 #include "Chord.h"
-#include <map>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <math.h>
 using namespace std;
 
-Chord::Chord(double length_in, int num_in, std::map<int, std::string> mods_in)
+Chord::Chord(double length_in, int num_in, vector<int> mods_in)
     : length(length_in), num(num_in), mods(mods_in)
 {
 }
 
-Chord::Chord() : length(3), num(1), mods({})
+Chord::Chord() : length(1), num(1), mods({})
 {
 }
 

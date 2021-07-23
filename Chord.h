@@ -9,7 +9,7 @@
  * Jul. 21, 2021
  */
 
-#include <map>
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -20,11 +20,10 @@ class Chord
 private:
     double length; // length in 1/4th notes
     int num;
-
-    std::map<int, std::string> mods;
+    std::vector<int> mods;
 
 public:
-    Chord(double length_in, int num_in, std::map<int, std::string> mods_in);
+    Chord(double length_in, int num_in, std::vector<int> mods_in);
     Chord();
     void print_chord(std::ostream &os);
 };
