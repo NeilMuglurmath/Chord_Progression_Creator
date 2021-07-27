@@ -14,10 +14,13 @@ Chord::Chord() : length(1), num(1), mods({})
 {
 }
 
-void Chord::print_chord(std::ostream &os)
+void Chord::print_chord(std::ostream &os, int pattern_end, double &current_pos)
 {
-
-    if (fmod(current_pos-1, 4) == 0)
+    if (current_pos >= pattern_end){
+        os << "|| ";
+        return;
+    }
+    if (fmod(current_pos - 1, 4) == 0)
     {
         os << "|| ";
     }
@@ -29,7 +32,10 @@ void Chord::print_chord(std::ostream &os)
     current_pos += 0.5;
     for (double i = 0.5; i < length; i += 0.5)
     {
-        if (fmod(current_pos-1, 4) == 0)
+        if (current_pos >= pattern_end){
+            return;
+        }
+        if (fmod(current_pos - 1, 4) == 0)
         {
             os << "|| ";
         }

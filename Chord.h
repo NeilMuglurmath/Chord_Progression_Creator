@@ -13,8 +13,6 @@
 #include <string>
 #include <iostream>
 
-static double current_pos = 1;
-
 class Chord
 {
 private:
@@ -25,7 +23,7 @@ private:
 public:
     Chord(double length_in, int num_in, std::vector<int> mods_in);
     Chord();
-    void print_chord(std::ostream &os);
+    void print_chord(std::ostream &os, int pattern_end, double &current_pos);
 };
 
 #endif
