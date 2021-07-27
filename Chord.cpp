@@ -16,15 +16,20 @@ Chord::Chord() : length(1), num(1), mods({})
 
 void Chord::print_chord(std::ostream &os)
 {
-    if (current_pos == 1)
+
+    if (fmod(current_pos-1, 4) == 0)
     {
         os << "|| ";
+    }
+    else if (floor(current_pos) == current_pos)
+    {
+        os << "| ";
     }
     os << num << " ";
     current_pos += 0.5;
     for (double i = 0.5; i < length; i += 0.5)
     {
-        if (fmod(current_pos, 4) == 0)
+        if (fmod(current_pos-1, 4) == 0)
         {
             os << "|| ";
         }
