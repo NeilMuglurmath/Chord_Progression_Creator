@@ -31,10 +31,14 @@ public:
 
     void generate_chords(ofstream &fout)
     {
+
+        int chord_num = 1;
+
         for (size_t i = 0; i < num_progressions; ++i)
         {
             current_pos = 1;
             main_current_pos = 1;
+            chord_num = 1;
             if (i != 0)
             {
                 fout << "|| ";
@@ -46,6 +50,16 @@ public:
                 int test = rand();
                 double rand_num = fmod(test, TOTAL_WEIGHT);                    // generate chord
                 double length = fmod(rand(), (pattern_end - current_pos + 1)); // random length that fits in pattern
+
+                if (chord_num < 3)
+                {
+                    length = floor(length / 2); // force shorter first 2 chords
+                }
+
+                if (chord_num == 1)
+                {
+                    rand_num = 1; // force first chord to be root
+                }
 
                 Chord chord;
 
@@ -78,6 +92,7 @@ public:
                     chord = {length, 7, {}};
                 }
                 chord.print_chord(fout, pattern_end, current_pos);
+                ++chord_num;
             }
         }
         fout << "|| ";
