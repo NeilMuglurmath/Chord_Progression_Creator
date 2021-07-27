@@ -12,54 +12,58 @@ class Execute
 private:
 public:
     const int PATTERN_END = 33;
-
     const vector<double> WEIGHTS = {0, 4, 2, 3, 2, 3.5, 3, 2};
-
     const double TOTAL_WEIGHT = 19.5;
+    int main_current_pos = 1;
 
-    void generate_chord()
+    void generate_chords()
     {
-        while (current_pos < PATTERN_END)
+        while (PATTERN_END > current_pos)
         {
-            double rand_num = fmod(rand(), TOTAL_WEIGHT);      // generate chord
-            int length = rand() % (PATTERN_END - current_pos); // random length that fits in pattern
+            int test = rand();
+            double rand_num = fmod(test, TOTAL_WEIGHT);                  // generate chord
+            double length = fmod(rand(), (PATTERN_END - current_pos + 1)); // random length that fits in pattern
+            current_pos += length;
+
+            Chord chord;
 
             if (rand_num < WEIGHTS.at(1))
             {
-                Chord chord(length, 1, {});
+                chord = {length, 1, {}};
             }
-            else if (rand_num < WEIGHTS.at(2))
+            else if (rand_num < WEIGHTS.at(2) + WEIGHTS.at(1))
             {
-                Chord chord(length, 2, {});
+                chord = {length, 2, {}};
             }
-            else if (rand_num < WEIGHTS.at(3))
+            else if (rand_num < WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
             {
-                Chord chord(length, 3, {});
+                chord = {length, 3, {}};
             }
-            else if (rand_num < WEIGHTS.at(4))
+            else if (rand_num < WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
             {
-                Chord chord(length, 4, {});
+                chord = {length, 4, {}};
             }
-            else if (rand_num < WEIGHTS.at(5))
+            else if (rand_num < WEIGHTS.at(5) + WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
             {
-                Chord chord(length, 5, {});
+                chord = {length, 5, {}};
             }
-            else if (rand_num < WEIGHTS.at(6))
+            else if (rand_num < WEIGHTS.at(6) + WEIGHTS.at(5) + WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
             {
-                Chord chord(length, 6, {});
+                chord = {length, 6, {}};
             }
-            else if (rand_num < WEIGHTS.at(7))
+            else
             {
-                Chord chord(length, 7, {});
+                chord = {length, 7, {}};
             }
+            chord.print_chord(cout);
         }
     }
 };
 
 int main(int argc, char const *argv[])
 {
-    current_pos = 1;
-    Chord c(10, 10, {});
-    c.print_chord(cout);
+    Execute e;
+    srand(static_cast<unsigned int>(time(0)));
+    e.generate_chords();
     return 0;
 }
