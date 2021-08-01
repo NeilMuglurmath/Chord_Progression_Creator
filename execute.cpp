@@ -19,6 +19,8 @@ public:
     int num_progressions;
     double current_pos;
     int pattern_end;
+    const int MOD_WEIGHT = 3;
+    const int MOD_CUTOFF = 1;
 
     bool areArgumentsGood(int argc, char const *argv[])
     {
@@ -50,10 +52,11 @@ public:
                 int test = rand();
                 double rand_num = fmod(test, TOTAL_WEIGHT);                    // generate chord
                 double length = fmod(rand(), (pattern_end - current_pos + 1)); // random length that fits in pattern
+                int mod_rand_num = rand() % MOD_WEIGHT;
 
-                if (chord_num < 3)
+                if (chord_num < 4)
                 {
-                    length = floor(length / 2); // force shorter first 2 chords
+                    length = floor(length / 3); // force shorter first 2 chords
                 }
 
                 if (chord_num == 1)
@@ -63,33 +66,64 @@ public:
 
                 Chord chord;
 
+                vector<int> mods;
+
                 if (rand_num < WEIGHTS.at(1))
                 {
-                    chord = {length, 1, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(7);
+                        mods.push_back(9);
+                    }
+                    chord = {length, 1, mods};
                 }
                 else if (rand_num < WEIGHTS.at(2) + WEIGHTS.at(1))
                 {
-                    chord = {length, 2, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(5);
+                    }
+                    chord = {length, 2, mods};
                 }
                 else if (rand_num < WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
                 {
-                    chord = {length, 3, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(2);
+                    }
+                    chord = {length, 3, mods};
                 }
                 else if (rand_num < WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
                 {
-                    chord = {length, 4, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(2);
+                    }
+                    chord = {length, 4, mods};
                 }
                 else if (rand_num < WEIGHTS.at(5) + WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
                 {
-                    chord = {length, 5, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(4);
+                    }
+                    chord = {length, 5, mods};
                 }
                 else if (rand_num < WEIGHTS.at(6) + WEIGHTS.at(5) + WEIGHTS.at(4) + WEIGHTS.at(3) + WEIGHTS.at(2) + WEIGHTS.at(1))
                 {
-                    chord = {length, 6, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(7);
+                    }
+                    chord = {length, 6, mods};
                 }
                 else
                 {
-                    chord = {length, 7, {}};
+                    if (mod_rand_num <= MOD_CUTOFF)
+                    {
+                        mods.push_back(3);
+                    }
+                    chord = {length, 7, mods};
                 }
                 chord.print_chord(fout, pattern_end, current_pos);
                 ++chord_num;
